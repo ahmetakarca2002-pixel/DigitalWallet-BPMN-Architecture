@@ -1,56 +1,32 @@
-# Welcome to your Expo app 👋
+# Digital Wallet & BPMN Process Automation 🚀 [WIP]
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Bu proje, modern bir dijital cüzdan uygulamasının arka planındaki karmaşık iş kurallarını ve finansal akışları **Camunda BPMN/DMN** motoru ile otomatize eden, **Node.js** ve **React Native** tabanlı tam yığın (full-stack) bir finansal teknoloji (FinTech) altyapısıdır. 
 
-## Get started
+*Not: Proje aktif geliştirme aşamasındadır (Work in Progress).*
 
-1. Install dependencies
+## 💡 Mimari Vizyon ve Çözülen Problemler
+Geleneksel monolotik `if/else` blokları yerine, iş kuralları DMN (Decision Model and Notation) tablolarına soyutlanmış; asenkron görev kuyrukları ve zamanlanmış (cron) işlemler BPMN süreçleriyle yönetilmiştir.
 
-   ```bash
-   npm install
-   ```
+* **Multi-Instance EOD (Gün Sonu) Batch Süreci:** Vadesi dolan binlerce hesabın, Camunda'nın Multi-Instance Sub-Process motoruyla eşzamanlı kilitlenme (OptimisticLockingException) yaratmadan, `Async Before` kuyruk mimarisiyle güvenle işlenmesi sağlandı.
+* **Dinamik Bileşik Faiz (Roll-over) Motoru:** Müşterinin hesap türüne ve ana para büyüklüğüne göre (Örn: Standart %35, VIP %42) faiz oranını kod bağımsız şekilde DMN tablolarından çeken ve yeni dönem vadesini otomatik uzatan akıllı temdit sistemi entegre edildi.
+* **Gerçek Zamanlı WebSocket İletişimi:** Camunda'dan onay alan veya zaman aşımına uğrayan transfer işlemleri, Node.js Worker'ı üzerinden anında React Native arayüzüne (Client) push bildirimleri (Socket.io) olarak iletilir.
 
-2. Start the app
+## 🛠️ Kullanılan Teknolojiler
+* **Backend:** Node.js, Express.js
+* **Process Engine:** Camunda Platform 7, BPMN 2.0, DMN 1.3
+* **Database:** SQLite (WAL Journal Mode)
+* **Frontend:** React Native, Expo, Zustand
+* **Real-time:** Socket.io
+* **Workflow Client:** `camunda-external-task-client-js`
 
-   ```bash
-   npx expo start
-   ```
+## ⚙️ BPMN & DMN Entegrasyonları
+* `vadeli_faiz_oranlari.dmn`: Bakiye kademelerine göre dinamik getiri hesaplaması.
+* `hesaplarim_arasi_transfer.bpmn`: Güvenlik ve bakiye onayından geçen iç transfer süreçleri.
+* `vadeli_hesap_islemleri.bpmn` (EOD): Her gece tetiklenen, DMN entegreli otomatik vade yenileme (Roll-over) akışı.
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🚧 Yapılacaklar (Roadmap)
+- [x] BPMN tabanlı dış ve iç para transferi altyapısının kurulması.
+- [x] DMN tabanlı faiz oranı ve kısıtlama kararlarının koda entegrasyonu.
+- [x] Multi-Instance EOD (Gün Sonu) faiz tahakkuk sürecinin stabil hale getirilmesi.
+- [ ] React Native arayüzünün 3D animasyonlu cüzdan tasarımının tamamlanması.
+- [ ] Loglama ve Hata İzleme (Error Tracking) mekanizmalarının eklenmesi.
