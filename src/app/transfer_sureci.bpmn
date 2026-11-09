@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="MoneyTransferProcess" name="Para Transferi Süreci" isExecutable="true">
+    
+    <!-- Başlangıç Noktası (React Native'den tetiklenir) -->
+    <bpmn:startEvent id="StartEvent_Transfer" name="Transfer İsteği Geldi">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Bakiye ve Kara Liste (AML) Kontrolü (Node.js API yapacak) -->
+    <bpmn:serviceTask id="Task_CheckBalance" name="Bakiye ve AML Kontrolü" camunda:type="external" camunda:topic="check-balance-aml">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Karar Noktası: Tutar > 10.000 TL mi? -->
+    <bpmn:exclusiveGateway id="Gateway_LimitCheck" name="Tutar > 10.000 ₺?">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Auto</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Manuel Onay (Bankacı Ekranına Düşer) -->
+    <bpmn:userTask id="Task_ManualApproval" name="Operasyon Ekibi Onayı">
+      <bpmn:incoming>Flow_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <!-- Otomatik Onay ve Transferin Gerçekleşmesi (Node.js API yapacak) -->
+    <bpmn:serviceTask id="Task_ExecuteTransfer" name="Transferi Gerçekleştir" camunda:type="external" camunda:topic="execute-transfer">
+      <bpmn:incoming>Flow_Auto</bpmn:incoming>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Bitiş Noktası -->
+    <bpmn:endEvent id="EndEvent_Success" name="İşlem Tamamlandı">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- Bağlantı Çizgileri (Sequence Flows) -->
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_Transfer" targetRef="Task_CheckBalance" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_CheckBalance" targetRef="Gateway_LimitCheck" />
+    
+    <!-- Şartlı Çizgiler -->
+    <bpmn:sequenceFlow id="Flow_Manual" name="Evet" sourceRef="Gateway_LimitCheck" targetRef="Task_ManualApproval">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${amount &gt; 10000}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Auto" name="Hayır" sourceRef="Gateway_LimitCheck" targetRef="Task_ExecuteTransfer">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${amount &lt;= 10000}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_ManualApproval" targetRef="Task_ExecuteTransfer" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_ExecuteTransfer" targetRef="EndEvent_Success" />
+
+  </bpmn:process>
+</bpmn:definitions>
