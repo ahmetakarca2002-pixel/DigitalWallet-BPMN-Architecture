@@ -88,7 +88,7 @@ export const useStore = create<WalletStore>((set, get) => ({
         return {
           id: t.id?.toString() || Math.random().toString(),
           title: isCashback ? 'Kazanılan Sadakat Puanı' : (t.payment_type || 'Para Transferi'), 
-          subtitle: isCashback ? 'Dgpays Bank' : t.receiver_iban,
+          subtitle: isCashback ? 'AHBANK Bank' : t.receiver_iban,
           amount: isCashback ? dbAmount : -(dbAmount + fee), 
           loyaltyPoints: pts,
           feeAmount: fee, 

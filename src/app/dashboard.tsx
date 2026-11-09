@@ -51,7 +51,7 @@ function MenuGridItem({ icon, label,onPress }: { icon: keyof typeof MaterialComm
 }
 
 const NeonDgpays = ({ refreshing }: { refreshing: boolean }) => {
-  const letters = ['D', 'G', 'P', 'A', 'Y', 'S'];
+  const letters = ['A','H','B','A','N','K'];
   const animValues = useRef(letters.map(() => new RNAnimated.Value(1))).current;
 
   useEffect(() => {
