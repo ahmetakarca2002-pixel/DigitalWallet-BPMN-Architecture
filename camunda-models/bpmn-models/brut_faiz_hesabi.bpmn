@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0xm4so7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.52.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <bpmn:process id="brutFaiz" name="Brüt Faiz Hesabı" isExecutable="true" camunda:historyTimeToLive="30">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1jlb09y</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:scriptTask id="Activity_16zmfv3" name="Brüt Faiz Hesaplama" scriptFormat="javascript" camunda:resultVariable="brutFaiz">
+      <bpmn:incoming>Flow_14hg6uh</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mgfg5k</bpmn:outgoing>
+      <bpmn:script>var amount = execution.getVariable("amount");
+var rate = execution.getVariable("depositRate"); 
+var days = execution.getVariable("daysToMaturity");
+((amount * rate) * days)/(365);</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_0ustbfa" name="Brüt Faiz" scriptFormat="javascript" camunda:resultVariable="vadeSonuMevla">
+      <bpmn:incoming>Flow_1mgfg5k</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xea8gy</bpmn:outgoing>
+      <bpmn:script>var brut = execution.getVariable("brutFaiz");
+var amount = execution.getVariable("amount");
+amount + brut;</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_1mgfg5k" sourceRef="Activity_16zmfv3" targetRef="Activity_0ustbfa" />
+    <bpmn:endEvent id="Event_0lqvpi7">
+      <bpmn:incoming>Flow_1xea8gy</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1xea8gy" sourceRef="Activity_0ustbfa" targetRef="Event_0lqvpi7" />
+    <bpmn:businessRuleTask id="Activity_1ivjemo" name="Faiz Oranları" camunda:resultVariable="depositRate" camunda:decisionRef="timeDepositRates" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_1jlb09y</bpmn:incoming>
+      <bpmn:outgoing>Flow_14hg6uh</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1jlb09y" sourceRef="StartEvent_1" targetRef="Activity_1ivjemo" />
+    <bpmn:sequenceFlow id="Flow_14hg6uh" sourceRef="Activity_1ivjemo" targetRef="Activity_16zmfv3" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="brutFaiz">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1cbqgjd_di" bpmnElement="Activity_16zmfv3">
+        <dc:Bounds x="390" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_16eovuw" bpmnElement="Activity_0ustbfa">
+        <dc:Bounds x="560" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lqvpi7_di" bpmnElement="Event_0lqvpi7">
+        <dc:Bounds x="732" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0dsqycw_di" bpmnElement="Activity_1ivjemo">
+        <dc:Bounds x="240" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1mgfg5k_di" bpmnElement="Flow_1mgfg5k">
+        <di:waypoint x="490" y="120" />
+        <di:waypoint x="560" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xea8gy_di" bpmnElement="Flow_1xea8gy">
+        <di:waypoint x="660" y="120" />
+        <di:waypoint x="732" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jlb09y_di" bpmnElement="Flow_1jlb09y">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="240" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14hg6uh_di" bpmnElement="Flow_14hg6uh">
+        <di:waypoint x="340" y="120" />
+        <di:waypoint x="390" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

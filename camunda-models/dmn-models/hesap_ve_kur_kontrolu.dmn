@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0x1gdjc" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.52.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <decision id="TransferKisitlamalari" name="Hesap ve Kur Kontrolü" camunda:historyTimeToLive="30">
+    <decisionTable id="DecisionTable_0p47fs1" hitPolicy="FIRST">
+      <input id="Input_1" label="senderAccountType">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>senderAccountType</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_183a4xv" label="senderCurrency">
+        <inputExpression id="LiteralExpression_1v9zzco" typeRef="string">
+          <text>senderCurrency</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_18ompzn" label="receiverCurrency">
+        <inputExpression id="LiteralExpression_0r05i4w" typeRef="string">
+          <text>receiverCurrency</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="isTransferAllowed" name="isTransferAllowed" typeRef="boolean" />
+      <output id="OutputClause_1x3z6ws" name="rejectionReason" typeRef="string" />
+      <rule id="DecisionRule_19fqb4u">
+        <inputEntry id="UnaryTests_1h8rong">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_055kzr1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08925eu">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0puz8tc">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09h4e7z">
+          <text>"Vadeli hesaptan doğrudan transfer yapılamaz"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1x76zz8">
+        <inputEntry id="UnaryTests_0y2zoki">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_190qdxw">
+          <text>"TRY"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k8ridh">
+          <text>not("TRY")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1usy6ft">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ub463n">
+          <text>"Çapraz kur (FX) transferleri şu an kapalıdır"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16v9oaf">
+        <inputEntry id="UnaryTests_0soojc0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vot19k">
+          <text>"USD"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1alvz2y">
+          <text>not("USD")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ibeei1">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zdu2mo">
+          <text>"Çapraz kur (FX) transferleri şu an kapalıdır"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16enqkl">
+        <inputEntry id="UnaryTests_0o43ziw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yk4pal">
+          <text>"EUR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o82hza">
+          <text>not("EUR")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rh9jyv">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_140c9hg">
+          <text>"Çapraz kur (FX) transferleri şu an kapalıdır"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09crw0w">
+        <inputEntry id="UnaryTests_083rep6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01fbofm">
+          <text>"GBP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wxdo9p">
+          <text>not("GBP")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fq212p">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0x2aq6b">
+          <text>"Çapraz kur (FX) transferleri şu an kapalıdır"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0a020x5">
+        <inputEntry id="UnaryTests_0p3h5kt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16n6tw6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kv20er">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_092vsod">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_035zavh">
+          <text>"Onaylandı"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_03mekzn_di" dmnElementRef="TransferKisitlamalari">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

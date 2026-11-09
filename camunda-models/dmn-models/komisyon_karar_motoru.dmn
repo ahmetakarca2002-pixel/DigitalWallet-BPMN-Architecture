@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_FeeCalculation" name="Komisyon Kuralları" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.52.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <decision id="FeeCalculationDMN" name="Komisyon Kuralları" camunda:historyTimeToLive="30">
+    <decisionTable id="DecisionTable_1qedmzp">
+      <input id="Input_1" label="Müşteri Tipi">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>customerType</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Kesilecek Masraf" name="feeAmount" typeRef="double" />
+      <rule id="DecisionRule_0m12cd2">
+        <inputEntry id="UnaryTests_0ckjhqj">
+          <text>"VIP"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17p2xc2">
+          <text>0.00</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02fau9t">
+        <inputEntry id="UnaryTests_15y7a2o">
+          <text>"STANDART"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s4lh6m">
+          <text>5.00</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="FeeCalculationDMN_di" dmnElementRef="FeeCalculationDMN">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

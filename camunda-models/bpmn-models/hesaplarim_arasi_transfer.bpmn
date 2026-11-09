@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0gh4597" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.52.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <bpmn:process id="InternalTransferProcess" name="Hesaplarım Arası Transfer" isExecutable="true" camunda:historyTimeToLive="30">
+    <bpmn:startEvent id="StartEvent_1" name="İç Transfer İsteği">
+      <bpmn:outgoing>Flow_1t74wwh</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1t74wwh" sourceRef="StartEvent_1" targetRef="Activity_17zqhfg" />
+    <bpmn:serviceTask id="Activity_17zqhfg" name="Hesap ve Bakiye Kontrolü" camunda:type="external" camunda:topic="internal-validate-balance">
+      <bpmn:incoming>Flow_1t74wwh</bpmn:incoming>
+      <bpmn:outgoing>Flow_18znsi9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_18znsi9" sourceRef="Activity_17zqhfg" targetRef="Activity_0q0oa4m" />
+    <bpmn:serviceTask id="Activity_0q0oa4m" name="Transferi Gerçekleştir" camunda:type="external" camunda:topic="internal-execute-transfer">
+      <bpmn:incoming>Flow_18znsi9</bpmn:incoming>
+      <bpmn:outgoing>Flow_1t7nlud</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1t7nlud" sourceRef="Activity_0q0oa4m" targetRef="Activity_0kxvvbq" />
+    <bpmn:serviceTask id="Activity_0kxvvbq" name="Müşteriye Bildirim (SMS)" camunda:type="external" camunda:topic="internal-send-sms">
+      <bpmn:incoming>Flow_1t7nlud</bpmn:incoming>
+      <bpmn:outgoing>Flow_0j00rzf</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1pr0plo" name="Transfer Tamamlandı">
+      <bpmn:incoming>Flow_0j00rzf</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0j00rzf" sourceRef="Activity_0kxvvbq" targetRef="Event_1pr0plo" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="InternalTransferProcess">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="145" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1m8r2he_di" bpmnElement="Activity_17zqhfg">
+        <dc:Bounds x="270" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qb4soq_di" bpmnElement="Activity_0q0oa4m">
+        <dc:Bounds x="430" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06z96k7_di" bpmnElement="Activity_0kxvvbq">
+        <dc:Bounds x="590" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1pr0plo_di" bpmnElement="Event_1pr0plo">
+        <dc:Bounds x="752" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="740" y="145" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1t74wwh_di" bpmnElement="Flow_1t74wwh">
+        <di:waypoint x="218" y="120" />
+        <di:waypoint x="270" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18znsi9_di" bpmnElement="Flow_18znsi9">
+        <di:waypoint x="370" y="120" />
+        <di:waypoint x="430" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1t7nlud_di" bpmnElement="Flow_1t7nlud">
+        <di:waypoint x="530" y="120" />
+        <di:waypoint x="590" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0j00rzf_di" bpmnElement="Flow_0j00rzf">
+        <di:waypoint x="690" y="120" />
+        <di:waypoint x="752" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

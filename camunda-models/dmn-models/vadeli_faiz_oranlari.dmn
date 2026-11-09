@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1yhdplj" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.52.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <decision id="timeDepositRates" name="Vadeli Faiz Oranlari" camunda:historyTimeToLive="30">
+    <decisionTable id="DecisionTable_17ivn0z" hitPolicy="FIRST">
+      <input id="Input_1" label="customerType">
+        <!-- DÜZELTME: Değişken adı düzeltildi -->
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>customerType</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1y292o2" label="amount">
+        <inputExpression id="LiteralExpression_1wubf7s" typeRef="double">
+          <text>amount</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="depositRate" name="depositRate" typeRef="double" />
+      
+      <rule id="DecisionRule_0a55nkp">
+        <inputEntry><text>"STANDART", "VIP"</text></inputEntry>
+        <inputEntry><text>&lt;100000</text></inputEntry>
+        <outputEntry><text>0.27</text></outputEntry>
+      </rule>
+      
+      <!-- DÜZELTME: [100000..1000000) yazımıyla 100 bin TL ve üzeri dahil edildi -->
+      <rule id="DecisionRule_1y6tdhk">
+        <inputEntry><text>"STANDART"</text></inputEntry>
+        <inputEntry><text>[100000..1000000)</text></inputEntry>
+        <outputEntry><text>0.35</text></outputEntry>
+      </rule>
+      
+      <rule id="DecisionRule_1eaq40h">
+        <inputEntry><text>"STANDART", "VIP"</text></inputEntry>
+        <inputEntry><text>[1000000..10000000)</text></inputEntry>
+        <outputEntry><text>0.40</text></outputEntry>
+      </rule>
+      
+      <!-- DÜZELTME: >= (Büyük eşittir) eklendi -->
+      <rule id="DecisionRule_0t9fls4">
+        <inputEntry><text>"STANDART"</text></inputEntry>
+        <inputEntry><text>&gt;=10000000</text></inputEntry>
+        <outputEntry><text>0.42</text></outputEntry>
+      </rule>
+      
+      <rule id="DecisionRule_1emiskr">
+        <inputEntry><text>"VIP"</text></inputEntry>
+        <inputEntry><text>&gt;=10000000</text></inputEntry>
+        <outputEntry><text>0.425</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

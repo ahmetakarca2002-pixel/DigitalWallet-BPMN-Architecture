@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_07fq8qi" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.52.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <decision id="hesapAcmaKisitlamalari" name="Hesap Açma Kontrolü" camunda:historyTimeToLive="30">
+    <decisionTable id="DecisionTable_1w7acrf" hitPolicy="FIRST">
+      <input id="Input_1" label="senderAccountType" biodi:width="192">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>senderAccountType</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0o3szbs" label="receiverAccountType">
+        <inputExpression id="LiteralExpression_0d5f4ou" typeRef="string">
+          <text>receiverAccountType</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1cssio9" label="isAccountExpired">
+        <inputExpression id="LiteralExpression_0opi2yc" typeRef="boolean">
+          <text>isAccountExpired</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_058nanj" label="senderCurrency">
+        <inputExpression id="LiteralExpression_0h6wqcf" typeRef="string">
+          <text>senderCurrency</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_192aah0" label="receiverCurrency">
+        <inputExpression id="LiteralExpression_0ctw4wl" typeRef="string">
+          <text>receiverCurrency</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1g3t3ly" label="isCurrencyConverted">
+        <inputExpression id="LiteralExpression_0sw7brm" typeRef="boolean">
+          <text>isCurrencyConverted</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="rejectionReason" name="rejectionReason" typeRef="string" />
+      <output id="OutputClause_042ybg3" label="isDepositTransferAllowed" name="isDepositTransferAllowed" typeRef="boolean" biodi:width="192" />
+      <rule id="DecisionRule_1qel8ep">
+        <inputEntry id="UnaryTests_1qgvq3p">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11lzztp">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1db1iuw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1afzm63">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0j8e2ps">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11hrqx3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04e41kd">
+          <text>"Vadeli hesaplar arası para transferi şu an için kapalıdır"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16lw4nf">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_072uxog">
+        <inputEntry id="UnaryTests_0x3mq0k">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1amixj2">
+          <text>"VADESIZ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wk7ihv">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1np1jbi">
+          <text>"TRY"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wg15m9">
+          <text>"TRY"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15bb0wt">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kostzc">
+          <text>"Hesabınızı vade tarihinden önce kapatmanız durumunda faiz işletilmeyektir, onaylıyor musunuz?"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12a216p">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0j322hy">
+        <inputEntry id="UnaryTests_0gk9byd">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fcm8je">
+          <text>"VADESIZ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10hwoe4">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kg37to">
+          <text>"GBP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gegpop">
+          <text>"GBP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cscsqj">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dzraph">
+          <text>"Hesabınızı vade tarihinden önce kapatmanız durumunda faiz işletilmeyektir, onaylıyor musunuz?"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06wjzbc">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bbyc0e">
+        <inputEntry id="UnaryTests_043kys9">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lco7d3">
+          <text>"VADESIZ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_048gyj3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0plybt6">
+          <text>"EUR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_131j663">
+          <text>"EUR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13d2ksg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kwu59j">
+          <text>"Hesabınızı vade tarihinden önce kapatmanız durumunda faiz işletilmeyektir, onaylıyor musunuz?"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14dw4b5">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_089dbhg">
+        <inputEntry id="UnaryTests_0bzxgxj">
+          <text>"VADESIZ"or"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vh7lnv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01uzdfz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jtwkwj">
+          <text>"TRY"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18rltov">
+          <text>not("TRY")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cjrrwb">
+          <text>False</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ij8epy">
+          <text>"Farklı para birimleri arası transfer için kur dönüşümü onayı verilmelidir "</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15x6vyy">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19ed7d9">
+        <inputEntry id="UnaryTests_026p54v">
+          <text>"VADESIZ"or"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y4oy4o">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cwrwwe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j3vai7">
+          <text>"GBP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l53qir">
+          <text>not("GBP")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zpfswo">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uzmo02">
+          <text>"Farklı para birimleri arası transfer için kur dönüşümü onayı verilmelidir "</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1a2j9pd">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wgg1zz">
+        <inputEntry id="UnaryTests_05rcx8f">
+          <text>"VADESIZ"or"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p1dk7f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11dmpwr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tsh3ml">
+          <text>"EUR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a62epk">
+          <text>not("EUR")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07a7pvv">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1t9hkz9">
+          <text>"Farklı para birimleri arası transfer için kur dönüşümü onayı verilmelidir "</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gp30xb">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0n8qmzy">
+        <inputEntry id="UnaryTests_0spdr1i">
+          <text>"VADESIZ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mowz2h">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cfd76d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04dpzzu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o14d4q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m69xc3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pbcapw">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04mc7xu">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pfzkaf">
+        <inputEntry id="UnaryTests_1wusg1w">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f00535">
+          <text>"VADESIZ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t8w1k6">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ys7pr1">
+          <text>"TRY"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oh07rz">
+          <text>not("TRY")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dj4jmx">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bs0zp7">
+          <text>"Vadeli hesabınızdan farklı para birimindeki vadesiz hesabınıza para transferi gerçekleştirmek için kur dönüşümü onayı vermeniz gerekmektedir"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pjitj0">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kekqrk">
+        <inputEntry id="UnaryTests_1ryepwy">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rb0jgf">
+          <text>"VADESIZ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0emuhhi">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_096s4f5">
+          <text>"GBP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xv9mk6">
+          <text>not("GBP")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1eotupp">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07alob6">
+          <text>"Vadeli hesabınızdan farklı para birimindeki vadesiz hesabınıza para transferi gerçekleştirmek için kur dönüşümü onayı vermeniz gerekmektedir"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_195400g">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0m8r20u">
+        <inputEntry id="UnaryTests_1k4k7vt">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14mdmyb">
+          <text>"VADESIZ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a403k5">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02d8puh">
+          <text>"EUR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wqgic4">
+          <text>not("EUR")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0op0048">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u8tc4w">
+          <text>"Vadeli hesabınızdan farklı para birimindeki vadesiz hesabınıza para transferi gerçekleştirmek için kur dönüşümü onayı vermeniz gerekmektedir"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pxhh6h">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10sroqn">
+        <inputEntry id="UnaryTests_1hkyu22">
+          <text>"VADELI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1eujgb6">
+          <text>"VADESIZ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_002k686">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kfwt63">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e2md49">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wu4l0a">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18j6zap">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1g71mne">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_08gmr5u_di" dmnElementRef="hesapAcmaKisitlamalari">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

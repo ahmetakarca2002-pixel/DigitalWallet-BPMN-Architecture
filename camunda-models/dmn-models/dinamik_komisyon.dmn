@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_1c1skfu" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.52.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <decision id="KomisyonKurallari" name="Decision 1" camunda:historyTimeToLive="30">
+    <decisionTable id="DecisionTable_0gj6en5" hitPolicy="FIRST">
+      <input id="Input_1" label="customerType" camunda:inputVariable="customerType">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>customerType</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_032yhw2" label="paymentType">
+        <inputExpression id="LiteralExpression_0b3tksq" typeRef="string">
+          <text>paymentType</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1rbbgn8" label="isOutOfHours">
+        <inputExpression id="LiteralExpression_1djgz06" typeRef="boolean">
+          <text>isOutOfHours</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1a3vv51" label="amount">
+        <inputExpression id="LiteralExpression_0ujklni" typeRef="double">
+          <text>amount</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="feeamount" name="feeamount" typeRef="double" biodi:width="192" />
+      <rule id="DecisionRule_1prjn6p">
+        <inputEntry id="UnaryTests_0ptxw3j">
+          <text>"VIP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_086ix0g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01ka0f9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mg2ck2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1n84x9t">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ezqak6">
+        <inputEntry id="UnaryTests_0zfqi7m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mqo479">
+          <text>"SWIFT"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mp4t1k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0boavzw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10aao2o">
+          <text>500</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kobt7p">
+        <inputEntry id="UnaryTests_1pxx29h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16cz3oy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vfhaej">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1acu8q0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u73y42">
+          <text>25</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1559uo4">
+        <inputEntry id="UnaryTests_0qtm1v6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pvxpzt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r94a3v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tg5prc">
+          <text>&gt; 10000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uw1hqq">
+          <text>50</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_158oke9">
+        <inputEntry id="UnaryTests_1rfyt97">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ievoxa">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u7bn2l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v6m9xk">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0h2lqyf">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_18mnnw9_di" dmnElementRef="KomisyonKurallari">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
